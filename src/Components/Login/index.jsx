@@ -1,19 +1,21 @@
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 
-import { GlobalStyle } from '../assets/css'
-import Icon from './assests/TrackIt.png'
+import Icon from '../../assets/img/TrackIt.png'
 
 export default function Login() {
+
+    const navigate = useNavigate()
+
     return (
         <DivContainer>
-            <GlobalStyle />
             <img src={Icon} alt="Icon-TrackIt" />
             <DivInput>
                 <input type="email" name="" placeholder="email" />
                 <input type="password" name="" placeholder="senha" />
                 <input type="submit" value="Entrar" />
             </DivInput>
-            <p>Não tem uma conta? Cadastre-se!</p>
+            <p onClick={() => navigate('/cadastro')}>Não tem uma conta? Cadastre-se!</p>
         </DivContainer>
     )
 }
@@ -27,10 +29,12 @@ const DivContainer = styled.div`
     gap: 35px;
 
     margin-top: 70px;
+
+    font-family: Lexend Deca;
 `
 
 const DivInput = styled.form`
-    width: 305px;
+    width: 80%;
 
     display: flex;
     flex-direction: column;
