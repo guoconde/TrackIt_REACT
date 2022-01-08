@@ -45,4 +45,20 @@ export const GlobalStyle = createGlobalStyle`
             background-color: #52A6FF;
         }
     }
+
+    button {
+        background-color: #52B6FF;
+        border: none;
+        border-radius: 5px;
+
+        font-family: Lexend Deca;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 20px;
+        color: white;
+
+        :active {
+            background-color: #52A6FF;
+        }
+    }
 `

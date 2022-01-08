@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "../Login";
 import Register from "../Register";
 import Habits from "../Habits/Main";
+import Today from "../Habits/Today";
 
 import { ResetStyle } from '../../assets/css/reset'
 import { GlobalStyle } from '../../assets/css'
@@ -16,6 +17,7 @@ export default function App() {
                 <Route path='/' element={<Login />} />
                 <Route path='/cadastro' element={<Register />} />
                 <Route path='/habitos' element={<Habits />} />
+                <Route path='/hoje' element={<Today />} />
             </Routes>
         </BrowserRouter>
     )
