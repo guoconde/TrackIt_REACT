@@ -1,38 +1,41 @@
-import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
-import { ThreeDots } from "react-loader-spinner"
-import { useForm } from "react-hook-form"
 import axios from "axios"
 
+import { useNavigate } from "react-router-dom"
+import { useForm } from "react-hook-form"
+import { useState } from "react"
+import { ThreeDots } from "react-loader-spinner"
+
 import Icon from '../../assets/img/TrackIt.png'
-import { useEffect, useState } from "react"
 
 export default function Login() {
 
     const { register, handleSubmit } = useForm();
-    const [ result, setResult ] = useState("");
-    const [ loading ] = useState(true)
-
-    useEffect(() => {
-
-        const promisse = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login', result )
-
-        promisse.then(response => console.log(response))
-    }, [])
+    const [result, setResult] = useState("");
+    const [loading, setLoading] = useState(true)
 
     const navigate = useNavigate()
 
-    function teste(data) {
+    function postSignIn() {
+        const promisse = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login', result)
+        promisse.then(response => console.log(response))
+        promisse.catch(() => setLoading(true))
+    }
+
+    function postLogin(data) {
         setResult(data)
         console.log(result)
+    
+        postSignIn()
+        setLoading(false)
     }
 
     return (
         <DivContainer>
             <img src={Icon} alt="Icon-TrackIt" />
-            <DivInput onSubmit={handleSubmit((data) => teste(data))}>
+            <DivInput onSubmit={handleSubmit((data) => postLogin(data))}>
                 <input {...register('email')} name='email' type="email" placeholder="email" />
-                <input {...register('senha')} name='senha' type="password" placeholder="senha" />
+                <input {...register('password')} name='password' type="password" placeholder="senha" />
                 {
                     loading === true ?
                         <input type="submit" value="Entrar" /> :

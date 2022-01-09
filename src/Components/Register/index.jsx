@@ -1,19 +1,40 @@
-import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
+import axios from 'axios'
+
+import { useNavigate } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
+import { useState } from 'react'
 
 import Icon from '../../assets/img/TrackIt.png'
 
 export default function Register() {
+
+    const { register, handleSubmit } = useForm();
+    const [result, setResult] = useState("");
+
     const navigate = useNavigate()
+
+    function postSignUp() {
+        const promisse = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up', result)
+        promisse.then(response => console.log(response))
+        promisse.catch(error => console.log(error))
+    }
+    
+    function postRegister(data) {
+        setResult(data)
+        console.log(result)
+
+        postSignUp()
+    }
 
     return (
         <DivContainer>
             <img src={Icon} alt="Icon-TrackIt" />
-            <DivInput>
-                <input type="email" name="" placeholder="email" />
-                <input type="password" name="" placeholder="senha" />
-                <input type="text" name="" placeholder="nome" />
-                <input type="url" name="" placeholder='foto' />
+            <DivInput onSubmit={handleSubmit((data) => postRegister(data))}>
+                <input {...register('email')} type="email" name="email" placeholder="email" />
+                <input {...register('password')} type="password" name="password" placeholder="senha" />
+                <input {...register('name')} type="text" name="name" placeholder="nome" />
+                <input {...register('image')} type="url" name="image" placeholder='foto' />
                 <input type="submit" value="Cadastrar" />
             </DivInput>
             <p onClick={() => navigate('/')}>Já tem uma conta? Faça login!</p>
