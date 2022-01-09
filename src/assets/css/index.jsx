@@ -15,6 +15,8 @@ export const GlobalStyle = createGlobalStyle`
         line-height: 17px;
         text-decoration-line: underline;
         color: #52B6FF;
+
+        cursor: pointer;
     }
     
     input {
