@@ -3,28 +3,23 @@ import axios from 'axios'
 
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import { useState } from 'react'
 
 import Icon from '../../assets/img/TrackIt.png'
 
 export default function Register() {
 
     const { register, handleSubmit } = useForm();
-    const [result, setResult] = useState("");
 
     const navigate = useNavigate()
 
-    function postSignUp() {
-        const promisse = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up', result)
+    function postSignUp(data) {
+        const promisse = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up', data)
         promisse.then(response => console.log(response))
         promisse.catch(error => console.log(error))
     }
     
     function postRegister(data) {
-        setResult(data)
-        console.log(result)
-
-        postSignUp()
+        postSignUp(data)
     }
 
     return (

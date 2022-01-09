@@ -11,33 +11,40 @@ import Icon from '../../assets/img/TrackIt.png'
 export default function Login() {
 
     const { register, handleSubmit } = useForm();
-    const [result, setResult] = useState("");
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
+    const [isDisabled, setIsDisabled] = useState(false)
 
     const navigate = useNavigate()
 
-    function postSignIn() {
-        const promisse = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login', result)
-        promisse.then(response => console.log(response))
-        promisse.catch(() => setLoading(true))
+    function postSignIn(data) {
+        const promisse = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login', data)
+        
+        promisse.then((response) => {
+            navigate('/hoje')
+            console.log(response)
+        })
+        
+        promisse.catch(error => {
+            console.log(error.name)
+            setLoading(false)
+            setIsDisabled(false)
+        })
     }
 
     function postLogin(data) {
-        setResult(data)
-        console.log(result)
-    
-        postSignIn()
-        setLoading(false)
+        postSignIn(data)
+        setLoading(true)
+        setIsDisabled(true)
     }
 
     return (
         <DivContainer>
             <img src={Icon} alt="Icon-TrackIt" />
             <DivInput onSubmit={handleSubmit((data) => postLogin(data))}>
-                <input {...register('email')} name='email' type="email" placeholder="email" />
-                <input {...register('password')} name='password' type="password" placeholder="senha" />
+                <input {...register('email')} disabled={isDisabled} name='email' type="email" placeholder="email" />
+                <input {...register('password')} disabled={isDisabled} name='password' type="password" placeholder="senha" />
                 {
-                    loading === true ?
+                    loading === false ?
                         <input type="submit" value="Entrar" /> :
                         <DivLoader>
                             <ThreeDots type="ThreeDots" color="white" height={80} width={80} />
