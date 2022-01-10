@@ -37,6 +37,11 @@ export const GlobalStyle = createGlobalStyle`
         ::placeholder {
             color: #DBDBDB;
         }
+
+        :disabled {
+            color: #AFAFAF;
+            background-color: #F2F2F2;
+        }
     }
 
     input[type="submit"] {
