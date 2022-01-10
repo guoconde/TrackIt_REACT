@@ -1,14 +1,18 @@
 import styled from "styled-components"
 
 import MiniIcon from './assets/TrackIt.png'
-import Imagem from './assets/img.jpg'
+import { useAuth } from "../../Generic/Providers/Auth"
 
 export default function Top() {
+
+    const { user } = useAuth()
+    console.log(user)
+
     return (
         <DivTop>
             <img src={MiniIcon} alt="Mini-Icon" />
             <div>
-                <img src={Imagem} alt="tem que trocar" />
+                <img src={user.image} alt="tem que trocar" />
             </div>
         </DivTop>
     )

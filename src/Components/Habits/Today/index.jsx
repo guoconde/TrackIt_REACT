@@ -1,9 +1,33 @@
 import styled from "styled-components"
+import axios from "axios"
+
+import { useEffect, useState } from 'react'
 
 import Top from "../Top"
 import Footer from "../Footer"
+import { useAuth } from "../../Generic/Providers/Auth"
 
 export default function Today() {
+
+    const { user } = useAuth()
+    const [ habit, setHabit ] = useState('')
+
+    useEffect(() => {
+        if (user.token) {
+
+            const promisse = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today',
+                { headers: { 'Authorization': `Bearer ${user.token}` } })
+
+            promisse.then(response => {
+                setHabit(response.data)
+            })
+
+            promisse.catch(error => console.log(error))
+        }
+    }, [user.token])
+
+    console.log(habit)
+
     return (
         <>
             <Top />
@@ -90,7 +114,7 @@ const DivInfo = styled.div`
     }
 `
 
-const DivCheck = styled.div `
+const DivCheck = styled.div`
     width: 70px;
     height: 70px;
 

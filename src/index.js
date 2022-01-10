@@ -1,5 +1,11 @@
 import ReactDom from "react-dom";
 
 import App from './Components/App'
+import { AuthProvider } from "./Components/Generic/Providers/Auth";
 
-ReactDom.render(<App />, document.querySelector('.root'))
+ReactDom.render(
+    <AuthProvider>
+        <App />
+    </AuthProvider>,
+document.querySelector('.root')
+)

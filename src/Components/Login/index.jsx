@@ -1,12 +1,13 @@
 import styled from "styled-components"
 import axios from "axios"
-import schema from "../Generic/Validation"
+import schema from "../Generic/ValidationLogin"
 import Load from "../Generic/Load"
 
 import { useNavigate } from "react-router-dom"
 import { useForm } from "react-hook-form"
 import { useState } from "react"
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useAuth } from "../Generic/Providers/Auth"
 
 import Icon from '../../assets/img/TrackIt.png'
 
@@ -18,6 +19,7 @@ export default function Login() {
 
     const [loading, setLoading] = useState(false)
     const [isDisabled, setIsDisabled] = useState(false)
+    const { setUser } = useAuth()
 
     const navigate = useNavigate()
 
@@ -26,7 +28,7 @@ export default function Login() {
 
         promisse.then((response) => {
             navigate('/hoje')
-            console.log(response.data)
+            handleLogin(response.data)
         })
 
         promisse.catch(() => {
@@ -36,13 +38,18 @@ export default function Login() {
         })
     }
 
+    function handleLogin(info) {
+        localStorage.setItem('user', JSON.stringify(info))
+        setUser(info)
+    }
+
     function postLogin(data) {
         postSignIn(data)
         setLoading(true)
         setIsDisabled(true)
-        console.log('chamou')
+        handleLogin(data)
     }
-
+    
     return (
         <DivContainer>
             <img src={Icon} alt="Icon-TrackIt" />

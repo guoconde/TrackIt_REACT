@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 import axios from 'axios'
-import schema from '../Generic/Validation'
+import schema from '../Generic/ValidationRegister'
 import Load from '../Generic/Load'
 
 import { useNavigate } from 'react-router-dom'
@@ -22,13 +22,18 @@ export default function Register() {
 
     function postSignUp(data) {
         const promisse = axios.post('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up', data)
-        
-        setTimeout(() => {
-            promisse.then(
+
+        promisse.then(
+            setTimeout(() => {
                 navigate('/')
-            )
-        }, 3000)
-        promisse.catch(error => console.log(error))
+            }, 3000)
+        )
+
+        promisse.catch(() => {
+            alert('Por favor verifique os dados informados.')
+            setLoading(true)
+            setIsDisabled(true)
+        })
     }
 
     function postRegister(data) {
@@ -49,7 +54,7 @@ export default function Register() {
                 <p>{errors.name?.message}</p>
                 <input {...register('image')} disabled={isDisabled} type="url" name="image" placeholder='foto' />
                 <p>{errors.image?.message}</p>
-                <Load loading={loading} value='Cadastrar'/>
+                <Load loading={loading} value='Cadastrar' />
             </DivInput>
             <p onClick={() => navigate('/')}>Já tem uma conta? Faça login!</p>
         </DivContainer>

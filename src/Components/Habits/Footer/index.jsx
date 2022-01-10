@@ -1,14 +1,22 @@
+import { Link } from "react-router-dom"
 import styled from "styled-components"
 
 export default function Footer() {
+
     return (
         <>
             <DivFooter>
-                <p>Hábitos</p>
-                <div>
-                    <span>Hoje</span>
-                </div>
-                <p>Históricos</p>
+                <Link to={'/habitos'}>
+                    <p>Hábitos</p>
+                </Link>
+                <Link to={'/hoje'}>
+                    <div>
+                        <span>Hoje</span>
+                    </div>
+                </Link>
+                <Link to={'/historico'}>
+                    <p>Históricos</p>
+                </Link>
             </DivFooter>
         </>
     )

@@ -8,6 +8,10 @@ export const GlobalStyle = createGlobalStyle`
     body {
         font-family: Lexend Deca;
     }
+
+    a {
+        text-decoration: none;
+    }
     
     p {
         font-size: 14px;
